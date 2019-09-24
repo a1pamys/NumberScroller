@@ -10,5 +10,5 @@ import UIKit
 
 protocol SlotMachineDataSource {
     var numberOfSlots: Int { get }
-    var slotItems: Array<UIImage?> { get }
+    var slotItems: [Int] { get }
 }

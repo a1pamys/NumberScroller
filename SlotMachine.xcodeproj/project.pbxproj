@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5D39FD8F2338CB0900914943 /* SlotMachineDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D39FD8E2338CB0900914943 /* SlotMachineDelegate.swift */; };
 		5DF56C22233667D500A4A566 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF56C21233667D500A4A566 /* AppDelegate.swift */; };
 		5DF56C24233667D500A4A566 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF56C23233667D500A4A566 /* ViewController.swift */; };
 		5DF56C27233667D500A4A566 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF56C25233667D500A4A566 /* Main.storyboard */; };
-		5DF56C29233667D800A4A566 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5DF56C28233667D800A4A566 /* Assets.xcassets */; };
 		5DF56C2C233667D800A4A566 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5DF56C2A233667D800A4A566 /* LaunchScreen.storyboard */; };
 		5DF56C342336680300A4A566 /* SlotMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF56C332336680300A4A566 /* SlotMachine.swift */; };
 		5DF56C362338933600A4A566 /* UIView + Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF56C352338933600A4A566 /* UIView + Extensions.swift */; };
@@ -18,11 +18,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5D39FD8E2338CB0900914943 /* SlotMachineDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotMachineDelegate.swift; sourceTree = "<group>"; };
 		5DF56C1E233667D500A4A566 /* SlotMachine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SlotMachine.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5DF56C21233667D500A4A566 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5DF56C23233667D500A4A566 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5DF56C26233667D500A4A566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		5DF56C28233667D800A4A566 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5DF56C2B233667D800A4A566 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5DF56C2D233667D800A4A566 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5DF56C332336680300A4A566 /* SlotMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlotMachine.swift; sourceTree = "<group>"; };
@@ -72,7 +72,6 @@
 			children = (
 				5DF56C2D233667D800A4A566 /* Info.plist */,
 				5DF56C25233667D500A4A566 /* Main.storyboard */,
-				5DF56C28233667D800A4A566 /* Assets.xcassets */,
 				5DF56C2A233667D800A4A566 /* LaunchScreen.storyboard */,
 				5DF56C21233667D500A4A566 /* AppDelegate.swift */,
 				5DF56C352338933600A4A566 /* UIView + Extensions.swift */,
@@ -85,6 +84,7 @@
 			children = (
 				5DF56C332336680300A4A566 /* SlotMachine.swift */,
 				5DF56C39233897A300A4A566 /* SlotMachineDataSource.swift */,
+				5D39FD8E2338CB0900914943 /* SlotMachineDelegate.swift */,
 			);
 			path = SlotMachine;
 			sourceTree = "<group>";
@@ -148,7 +148,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DF56C2C233667D800A4A566 /* LaunchScreen.storyboard in Resources */,
-				5DF56C29233667D800A4A566 /* Assets.xcassets in Resources */,
 				5DF56C27233667D500A4A566 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -162,6 +161,7 @@
 			files = (
 				5DF56C362338933600A4A566 /* UIView + Extensions.swift in Sources */,
 				5DF56C24233667D500A4A566 /* ViewController.swift in Sources */,
+				5D39FD8F2338CB0900914943 /* SlotMachineDelegate.swift in Sources */,
 				5DF56C22233667D500A4A566 /* AppDelegate.swift in Sources */,
 				5DF56C342336680300A4A566 /* SlotMachine.swift in Sources */,
 				5DF56C3A233897A300A4A566 /* SlotMachineDataSource.swift in Sources */,

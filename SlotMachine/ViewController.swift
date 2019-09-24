@@ -11,22 +11,22 @@ import UIKit
 class ViewController: UIViewController {
     
     var slotMachine: SlotMachine!
-    var _slotItems: [UIImage?] = [UIImage(named: "Doraemon"), UIImage(named: "Mario"), UIImage(named: "Nobi Nobita"), UIImage(named: "Batman")]
+    var _slotItems: [Int] = [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
 
     var startButton: UIButton = {
         let b = UIButton()
         b.backgroundColor = .blue
         b.layer.cornerRadius = 24
         b.addTarget(self, action: #selector(startScrolling), for: .touchUpInside)
-        b.setImage(UIImage(named: "Mario"), for: .normal)
         return b
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        slotMachine = SlotMachine(frame: CGRect(x: 0, y: 0, width: 300, height: 200))
+        slotMachine = SlotMachine(frame: CGRect(x: 0, y: 0, width: 300, height: 48))
         slotMachine.dataSource = self
+        slotMachine.delegate = self
         
         setupViews()
         setupConstraints()
@@ -46,6 +46,7 @@ class ViewController: UIViewController {
 
     @objc func startScrolling() {
         let slotCount = slotItems.count
+        slotMachine.slotResults.removeAll()
         for _ in 0..<numberOfSlots {
             slotMachine.slotResults.append(Int(arc4random()) % slotCount)
         }
@@ -56,13 +57,25 @@ class ViewController: UIViewController {
 extension ViewController: SlotMachineDataSource {
     var numberOfSlots: Int {
         get {
-            return 3
+            return 6
         }
     }
     
-    var slotItems: [UIImage?] {
+    var slotItems: [Int] {
         get {
             return _slotItems
         }
+    }
+}
+
+extension ViewController: SlotMachineDelegate {
+    func slotMachineWillStartSliding() {
+        startButton.isEnabled = false
+        startButton.backgroundColor = .lightGray
+    }
+    
+    func slotMachineDidEndSliding() {
+        startButton.isEnabled = true
+        startButton.backgroundColor = .blue
     }
 }

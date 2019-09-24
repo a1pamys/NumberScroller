@@ -16,7 +16,7 @@ class SlotMachine: UIView {
     var slotScrollLayerArray = [CALayer]()
     var slotResults = Array<Int?>()
     var currentSlotResults = Array<Int?>()
-    var singleUnitDuration: CGFloat = 0.14
+    var singleUnitDuration: CGFloat = 0.01
     
     var contentView = UIView()
     
@@ -25,6 +25,8 @@ class SlotMachine: UIView {
             reloadData()
         }
     }
+    
+    var delegate: SlotMachineDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,7 +40,7 @@ class SlotMachine: UIView {
     func setupViews() {
         contentView = UIView(frame: frame)
         addSubview(contentView)
-        contentView.backgroundColor = .lightGray
+        contentView.backgroundColor = .red
     }
     
     func reloadData() {
@@ -54,7 +56,8 @@ class SlotMachine: UIView {
             let slotItems = dataSource.slotItems
             let numberOfSlots = dataSource.numberOfSlots
             let slotWidth = contentView.frame.self.width / CGFloat(numberOfSlots)
-            let singleUnitHeight = contentView.frame.size.height/3
+//            let singleUnitHeight: CGFloat = contentView.frame.size.height/3
+            let singleUnitHeight: CGFloat = contentView.frame.size.height
             let itemsCount = slotItems.count
             
             for i in 0..<numberOfSlots {
@@ -76,15 +79,14 @@ class SlotMachine: UIView {
                 
                 var j = 0
                 while(j > scrollLayerTopIndex) {
-                    let item = (slotItems[abs(j) % itemsCount])!
-                    let itemLayer = CALayer()
+                    let item = slotItems[abs(j) % itemsCount]
+                    let itemLayer = CATextLayer()
+                    itemLayer.string = String(item)
+                    itemLayer.alignmentMode = .center
+                    itemLayer.font = UIFont.boldSystemFont(ofSize: 14)
                     
-                    let offsetYUnit = j + 1 + itemsCount
+                    let offsetYUnit = j - 1 + itemsCount
                     itemLayer.frame = CGRect(x: 0, y: CGFloat(offsetYUnit) * singleUnitHeight, width: slotScrollLayer.frame.size.width, height: singleUnitHeight)
-                    
-                    itemLayer.contents = item.cgImage
-                    itemLayer.contentsScale = item.scale
-                    itemLayer.contentsGravity = CALayerContentsGravity.center
                     slotScrollLayer.addSublayer(itemLayer)
                     j -= 1
                 }
@@ -98,9 +100,11 @@ class SlotMachine: UIView {
         }
         
         isSliding = true
+        delegate?.slotMachineWillStartSliding()
         
         let slotItems = dataSource!.slotItems
         let itemsCount = slotItems.count
+        
         
         var completePositionArray = NSMutableArray()
         
@@ -110,6 +114,7 @@ class SlotMachine: UIView {
         CATransaction.setDisableActions(true)
         CATransaction.setCompletionBlock {
             self.isSliding = false
+            self.delegate?.slotMachineDidEndSliding()
             
             for i in 0..<self.slotScrollLayerArray.count {
                 let slotScrollLayer = self.slotScrollLayerArray[i]
@@ -150,26 +155,30 @@ class SlotMachine: UIView {
         
         for i in 0..<slotScrollLayerArray.count {
             let slotScrollLayer = slotScrollLayerArray[i]
-            
             let resultIndex = slotResults[i]!
             var currentIndex = 0
             if currentSlotResults.count > 0 {
                 currentIndex = currentSlotResults[i]!
             }
             
+            let singleUnitHeight = contentView.frame.size.height
             let howManyUnits = (i + minTurn) * itemsCount + resultIndex - currentIndex
-            let slideY = CGFloat(howManyUnits) * contentView.frame.size.height/3
+            let slideY = CGFloat(howManyUnits) * singleUnitHeight
             
-            let slideAnimation = CABasicAnimation(keyPath: "position.y")
+            let slideAnimation = CASpringAnimation(keyPath: "position.y")
             slideAnimation.fillMode = CAMediaTimingFillMode.forwards
-            slideAnimation.duration = CFTimeInterval(CGFloat(howManyUnits) * singleUnitDuration)
+            
+            slideAnimation.damping = 30
+            slideAnimation.initialVelocity = 3
+            let durationDenominator = Double(slotScrollLayerArray.count*slotScrollLayerArray.count/2)
+            slideAnimation.duration = 1 + Double(i*i)/durationDenominator
+            
             slideAnimation.toValue = slotScrollLayer.position.y + slideY
             slideAnimation.isRemovedOnCompletion = false
             
             slotScrollLayer.add(slideAnimation, forKey: "slideAnimation")
             completePositionArray.add(slideAnimation.toValue!)
         }
-        
         CATransaction.commit()
     }
 }
